@@ -56,7 +56,7 @@ def quick_plot_bboxes(instance_predictions, inp_img_path):
     For now, plotting only the material prediction.
 
     Args:
-        instance_predictions: `dict` of instance predictions in format as in `andrej_output_format.txt`
+        instance_predictions: `dict` of instance predictions in format as in `bayes_output_format.txt`
         inp_img_path: `str` local path to the image
 
     Returns:
@@ -121,7 +121,7 @@ class CatmatPredictor:
         self.material_cm = cm_dict["material_confusion_matrix"]
         self.material_precisions = create_precision_list(self.material_cm)
 
-        # andrej format shit
+        # bayes format
         self.category_names = mapping_utils.category_ipalm_list
         self.material_names = mapping_utils.material_ipalm_list
 
@@ -170,26 +170,26 @@ class CatmatPredictor:
             image_boxes.append(tmp)
         return image_boxes
 
-    def get_andrej(self, src, output_target=None) -> Union[None, List[Dict]]:
+    def get_bayes_output(self, src, output_target=None) -> Union[None, List[Dict]]:
         """
-        Get dictionary in andrej_output_format.txt format
+        Get dictionary in bayes_output_format.txt format
         Args:
             src: path or the raw image data to be processed
-            output_target: None->return andrej dict, your_dict_name.json->writes to the file
+            output_target: None->return bayes dict, your_dict_name.json->writes to the file
 
         Returns:
 
         """
         if type(src) == str:
             boxresults = self.get_image_boxes(src)
-            andrej_dicts = list()
+            bayes_dicts = list()
             for boxresult in boxresults:
-                andrej_dict = dict()
+                bayes_dict = dict()
                 category_dict = dict()
                 cat_metrics_dict = dict()
                 category_list: List = boxresult["category_list"]
                 # Additional: bbox. Same level: "bbox", "category", "material"
-                andrej_dict["bbox"] = boxresult["initial_bbox"]
+                bayes_dict["bbox"] = boxresult["initial_bbox"]
                 # "metrics"
                 cat_metrics_dict["confidence"] = get_confidence(category_list)
                 max_cat = np.argmax(category_list)
@@ -203,7 +203,7 @@ class CatmatPredictor:
                     prediction_dict[self.category_names[i]] = category_list[i]
                 category_dict["prediction"] = prediction_dict
                 # finalize "category"
-                andrej_dict["category"] = category_dict
+                bayes_dict["category"] = category_dict
 
                 # material
                 material_dict = dict()
@@ -221,23 +221,23 @@ class CatmatPredictor:
                     prediction_dict[self.material_names[i]] = material_list[i]
                 material_dict["prediction"] = prediction_dict
                 # finalize "material"
-                andrej_dict["material"] = material_dict
+                bayes_dict["material"] = material_dict
 
                 # append dict to list of dicts for one image
-                andrej_dicts.append(andrej_dict)
+                bayes_dicts.append(bayes_dict)
             if type(output_target) == str:
                 with open(output_target, "w") as f:
-                    json.dump(andrej_dicts, f)
+                    json.dump(bayes_dicts, f)
                 return None
             elif output_target is None:
-                return andrej_dicts
+                return bayes_dicts
 
 
 if __name__ == "__main__":
     megapredictor = CatmatPredictor(0.6, model_path="ipalm/models/model_final.pth")
     input_imgs = ["images_input/" + f for f in listdir("images_input") if isfile(join("images_input", f))]
     for inp_img in input_imgs:
-        predictions = megapredictor.get_andrej(inp_img)
+        predictions = megapredictor.get_bayes_output(inp_img)
         quick_plot_bboxes(predictions, inp_img)
 
 

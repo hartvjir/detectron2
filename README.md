@@ -9,10 +9,8 @@ Part of the IPALM project, this is a fusion of a MobilenetV3 trained on the smal
 - Files added for the ipalm project, such as the material classification script are located in [ipalm/](https://github.com/Hartvi/Detectron2-mobilenet/tree/main/ipalm)
 
 # TODO
-- remove personal references => remove Andrej ;-;
 - add examples of how an input image is processed
 - clarify the diagrams
-- formalize the text
 - list the materials that are used from MINC
 - make a backup of this epo and make a fork of it from the original detectron repository
 - etc
@@ -38,16 +36,16 @@ Part of the IPALM project, this is a fusion of a MobilenetV3 trained on the smal
 ### Short demo:
 
 ```
-from detectron2 import andrej_logic
+from detectron2 import bayes_output_logic
 
 megapredictor = CatmatPredictor(threshold=0.6)
 # folder with images: "images_input/[some_images]"
 input_imgs = ["images_input/" + f for f in listdir("images_input") if isfile(join("images_input", f))]
-# CatMatPredictor.get_andrej(raw_image[arr]/image_path[str]) returns a list of dictionaries for 
+# CatMatPredictor.get_bayes_output(raw_image[arr]/image_path[str]) returns a list of dictionaries for 
 for inp_img in input_imgs:
-    # this is a list of dicts in andrej format, see ipalm/andrej_output_format
+    # this is a list of dicts in bayes format, see ipalm/bayes_output_format
     # optional argument: output_target="your_file_name.json" to save the dicts in json format
-    predictions = megapredictor.get_andrej(inp_img)  
+    predictions = megapredictor.get_bayes_output(inp_img)  
     # plot:
     quick_plot_bboxes(predictions, inp_img)
 ```
@@ -57,6 +55,9 @@ for inp_img in input_imgs:
 The outputs are going to be further processed downstream and they require precision and probabilities.
 
 The COCO style dataset compiled during the VIR project has labels in the format `integer: "category - material"` in human readable terms. However, the MINC materials do not exactly correspond to the materials from the COCO-style datasets, so we selected 8 materials from MINC to use for this project. 
+`material_ipalm_list = ['ceramic', 'glass', 'metal', 'other', 'paper', 'plastic', 'water', 'wood']`
+
+For more on the mapping between all the labels, see `ipalm/mapping_utils.py`.
 
 The requiredprecision is then calculated from the confusion matrix gained from running the networks on the test dataset that was used to train the basic Detectron2 for VIR. The first row and column of the matrix are ignored because those are the cases when the bounding boxes didn't contain any object in the image.
 

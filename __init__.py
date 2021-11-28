@@ -1,2 +1,2 @@
-import andrej_logic, run_w_detectron2
+import bayes_output_logic, run_w_detectron2
 
