@@ -18,7 +18,7 @@ Part of the IPALM project, this is a fusion of a MobilenetV3 trained on the smal
 - etc
 
 ### Prerequisites
-- Tested on Ubuntu & debian
+- Tested on Ubuntu 18.04 & Debian server
 - Requires Linux with CUDA
 - Versions of packages used:
   - `torchvision/0.9.1-fosscuda-2019b-PyTorch-1.8.0`
@@ -32,8 +32,6 @@ Part of the IPALM project, this is a fusion of a MobilenetV3 trained on the smal
     - This will create the folder called `Detectron2-mobilenet
 2. Rename `Detectron2-mobilenet` to `detectron2`: `mv Detectron2-mobilenet detectron2`
 3. In folder A: `python -m pip install -e detectron2 --user`
-4. ???
-5. Profit 1 billion dollars
 - All in one: `git clone https://github.com/Hartvi/Detectron2-mobilenet && mv Detectron2-mobilenet detectron2 && python -m pip install -e detectron2 --user`
 
 
