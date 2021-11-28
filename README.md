@@ -63,7 +63,7 @@ The high-level structure of the project is the following: The input image is fed
 The following picture contains an explanation how categories are weighted. There are in total 2 passes of each bounding box through detectron. Therefore there is 1 bounding box that is then plugged back into detectron to get some more bounding boxes. The weight of the class initially detected by detectron is then `area_of_first_bbox*first_probability` + `area_of_nested_bbox*second_probability`. The weights of other classes are simply just `area_of_nested_bbox_of_class_i*second_probability_of_class_i`.
 
 <div align=center>
-    <img src="https://i.imgur.com/PGrpmkD.png" alt="drawing" width="500"/><br>
+    <img src="https://i.imgur.com/1aY5GKP.png" alt="drawing" width="500"/><br>
     Figure 1. Category and material probability calculation.
 </div>
 <br>
