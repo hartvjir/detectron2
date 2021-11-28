@@ -8,13 +8,6 @@ Part of the IPALM project, this is a fusion of a MobilenetV3 trained on the smal
 
 - Files added for the ipalm project, such as the material classification script are located in [ipalm/](https://github.com/Hartvi/Detectron2-mobilenet/tree/main/ipalm)
 
-# TODO
-- add examples of how an input image is processed
-- clarify the diagrams
-- list the materials that are used from MINC
-- make a backup of this epo and make a fork of it from the original detectron repository
-- etc
-
 ### Prerequisites
 - Tested on Ubuntu 18.04 & Debian server
 - Requires Linux with CUDA
