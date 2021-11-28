@@ -1,0 +1,28 @@
+{
+    "category":{
+        "metrics":{
+            "precision":0.7,
+            "confidence":0.2
+        },
+        "names": ["name1", "name2", ..., "namen"],
+        "prediction":{
+            "name1": p(name1),
+            "name2": p(name2),
+            ...,
+            "namen": p(namen)
+        }
+    },
+    "material":{
+        "metrics":{
+            "precision":0.7,
+            "confidence":0.2
+        },
+        "names": ["name1", "name2", ..., "namen"],
+        "prediction":{
+            "name1": p(name1),
+            "name2": p(name2),
+            ...,
+            "namen": p(namen)
+        }
+    }
+}
