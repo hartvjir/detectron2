@@ -55,6 +55,7 @@ for inp_img in input_imgs:
 The outputs are going to be further processed downstream and they require precision and probabilities.
 
 The COCO style dataset compiled during the VIR project has labels in the format `integer: "category - material"` in human readable terms. However, the MINC materials do not exactly correspond to the materials from the COCO-style datasets, so we selected 8 materials from MINC to use for this project. 
+
 `material_ipalm_list = ['ceramic', 'glass', 'metal', 'other', 'paper', 'plastic', 'water', 'wood']`
 
 For more on the mapping between all the labels, see `ipalm/mapping_utils.py`.
@@ -64,20 +65,17 @@ The requiredprecision is then calculated from the confusion matrix gained from r
 ## Information flow
 For a summary of the contents of the files added for the ipalm project, see the [ipalm/README.md](https://github.com/Hartvi/Detectron2-mobilenet/tree/main/ipalm#readme)
 
-The high-level structure of the project is the following. The input image is fed into Detectron2 which is first used to locate objects of interest and its output data is saved. The bounding boxes gained from the first pass are extracted and plugged into Detectron2 (again) and also into MobileNet.
-<div align=center>
-    <img src="https://i.imgur.com/JcbV39e.png" alt="drawing" width="500"/><br>
-    Figure 1. Information flow in project structure.
-</div>
-<br>
+The high-level structure of the project is the following: The input image is fed into Detectron2 which is first used to locate objects of interest and its output data is saved. The bounding boxes gained from the first pass are extracted and plugged into Detectron2 (again) and also into MobileNet.
 
 The following picture contains an explanation how categories are weighted. There are in total 2 passes of each bounding box through detectron. Therefore there is 1 bounding box that is then plugged back into detectron to get some more bounding boxes. The weight of the class initially detected by detectron is then `area_of_first_bbox*first_probability` + `area_of_nested_bbox*second_probability`. The weights of other classes are simply just `area_of_nested_bbox_of_class_i*second_probability_of_class_i`.
 
-
 <div align=center>
-    <img src="https://i.imgur.com/IpxOxNd.png" alt="drawing" width="500"/><br>
-    Figure 2. Category and material probability calculation.
+    <img src="https://i.imgur.com/PGrpmkD.png" alt="drawing" width="500"/><br>
+    Figure 1. Category and material probability calculation.
 </div>
+<br>
+
+
 
 ### Making of this project
 The base of the project is the detectron2 framework's instance segmentation backbone by [facebookresearch](https://github.com/facebookresearch/detectron2). 
