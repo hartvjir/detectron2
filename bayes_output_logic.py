@@ -118,8 +118,12 @@ class CatmatPredictor:
             cm_dict = json.load(f)
         self.category_cm = cm_dict["category_confusion_matrix"]
         self.category_precisions = create_precision_list(self.category_cm)
+        self.category_precision = sum(self.category_precisions) / len(self.category_precisions)
+            
         self.material_cm = cm_dict["material_confusion_matrix"]
         self.material_precisions = create_precision_list(self.material_cm)
+        self.material_precision = sum(self.material_precisions) / len(self.material_precisions)
+
 
         # bayes format
         self.category_names = mapping_utils.category_ipalm_list
@@ -192,8 +196,8 @@ class CatmatPredictor:
                 bayes_dict["bbox"] = boxresult["initial_bbox"]
                 # "metrics"
                 cat_metrics_dict["confidence"] = get_confidence(category_list)
-                max_cat = np.argmax(category_list)
-                cat_metrics_dict["precision"] = self.category_precisions[max_cat]
+                # precision of the whole classifier
+                cat_metrics_dict["precision"] = self.category_precision
                 category_dict["metrics"] = cat_metrics_dict
                 # "names"
                 category_dict["names"] = self.category_names
@@ -210,8 +214,8 @@ class CatmatPredictor:
                 mat_metrics_dict = dict()
                 material_list: List = boxresult["material_list"]
                 mat_metrics_dict["confidence"] = get_confidence(material_list)
-                max_mat = np.argmax(material_list)
-                mat_metrics_dict["precision"] = self.material_precisions[max_mat]
+                # precision of the whole classifier
+                mat_metrics_dict["precision"] = self.material_precision
                 material_dict["metrics"] = mat_metrics_dict
                 # "names"
                 material_dict["names"] = self.material_names
