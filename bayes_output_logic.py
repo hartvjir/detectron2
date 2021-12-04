@@ -44,10 +44,10 @@ def create_precision_list(confusion_matrix):
     """
     ret = [0.0 for _ in range(len(confusion_matrix)-1)]
     for i in range(len(confusion_matrix)-1):
-        row_sum = sum(confusion_matrix[i+1][1:])
-        if row_sum == 0:
-            row_sum = 1
-        ret[i] = confusion_matrix[i+1][i+1] / row_sum
+        col_sum = sum(confusion_matrix[1:][1+i])
+        if col_sum == 0:
+            col_sum = 1
+        ret[i] = confusion_matrix[i+1][i+1] / col_sum
     return ret
 
 
