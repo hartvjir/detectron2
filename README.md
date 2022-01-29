@@ -55,7 +55,7 @@ For more on the mapping between all the labels, see `ipalm/mapping_utils.py`.
 
 The requiredprecision is then calculated from the confusion matrix gained from running the networks on the test dataset that was used to train the basic Detectron2 for VIR. The first row and column of the matrix are ignored because those are the cases when the bounding boxes didn't contain any object in the image.
 
-## Information flow
+### Information flow
 For a summary of the contents of the files added for the ipalm project, see the [ipalm/README.md](https://github.com/Hartvi/Detectron2-mobilenet/tree/main/ipalm#readme)
 
 The high-level structure of the project is the following: The input image is fed into Detectron2 which is first used to locate objects of interest and its output data is saved. The bounding boxes gained from the first pass are extracted and plugged into Detectron2 (again) and also into MobileNet.
@@ -83,11 +83,11 @@ I spent about 3 work weeks trying to add a ROIHead to detectron2 that would also
 #### 2. Dataset formatting
 The dataset formatting in COCO was done by Michal Pliska in the VIR subject. Formatting MINC2500 was only a minor issue of 2 of the 57500 images being single channel black and white, which crashed the training seemingly randomly.
 
-## License
+### License
 
 Detectron2 is released under the [Apache 2.0 license](LICENSE).
 
-## Citing Detectron2
+### Citing Detectron2
 
 If you use Detectron2 in your research or wish to refer to the baseline results published in the [Model Zoo](MODEL_ZOO.md), please use the following BibTeX entry.
 
@@ -100,3 +100,11 @@ If you use Detectron2 in your research or wish to refer to the baseline results 
   year =         {2019}
 }
 ```
+
+### Acknowledgements
+This work was supported by the project Interactive Perception-Action-Learning for Modelling Objects (IPALM, https://sites.google.com/view/ipalm) (H2020 -  FET - ERA-NET Cofund - CHIST-ERA III / Technology Agency of the Czech Republic, EPSILON, no. TH05020001).  
+
+<p align="middle">
+ <img src="./tacr.png" width=10%>
+</p>  
+
